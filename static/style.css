@@ -1,0 +1,359 @@
+
+/* ===================================
+   DriveFin - Estilos da aplicação
+   =================================== */
+
+:root {
+    --azul: #0754a6;
+    --azul-escuro: #073b78;
+    --verde: #087a40;
+    --vermelho: #c62828;
+    --texto: #101a35;
+    --fundo: #eef3fa;
+    --branco: #ffffff;
+    --borda: #c7d3e2;
+    --foco: #ffbf47;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    line-height: 1.5;
+}
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 10px;
+    padding: 12px;
+    background: white;
+    color: black;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 10px;
+}
+
+.cabecalho {
+    background: linear-gradient(
+        135deg,
+        var(--azul-escuro),
+        var(--azul)
+    );
+    color: white;
+    padding: 22px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 28px;
+}
+
+#contraste {
+    background: white;
+    color: var(--azul-escuro);
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.container {
+    width: min(100% - 32px, 900px);
+    margin: 30px auto;
+}
+
+.apresentacao {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.apresentacao h1 {
+    color: var(--azul-escuro);
+    font-size: clamp(24px, 4vw, 34px);
+    margin-bottom: 8px;
+}
+
+.painel {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 18px;
+    padding: 26px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 20px rgba(0, 30, 80, 0.06);
+}
+
+.painel h2 {
+    margin-top: 0;
+    font-size: 23px;
+    color: var(--azul-escuro);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+input,
+select {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px;
+    border: 1px solid #a8b8cc;
+    border-radius: 9px;
+    font-size: 16px;
+    background: white;
+    color: var(--texto);
+}
+
+input:focus,
+select:focus {
+    border-color: var(--azul);
+}
+
+button {
+    min-height: 44px;
+    font-family: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--foco);
+    outline-offset: 3px;
+}
+
+.botao-principal {
+    background: linear-gradient(
+        135deg,
+        var(--azul),
+        var(--azul-escuro)
+    );
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.botao-principal:hover {
+    filter: brightness(1.12);
+}
+
+#mensagem {
+    font-weight: bold;
+    min-height: 24px;
+}
+
+.cartoes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.cartao {
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid;
+}
+
+.cartao h3 {
+    font-size: 16px;
+    margin: 0 0 10px;
+}
+
+.cartao p {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.receitas {
+    background: #e4f6eb;
+    color: #086d39;
+    border-color: #acdcbf;
+}
+
+.despesas {
+    background: #fff0f0;
+    color: #af2020;
+    border-color: #f1b5b5;
+}
+
+.lucro {
+    background: #e7f0ff;
+    color: #0648ad;
+    border-color: #b0cdf7;
+}
+
+#historico {
+    padding: 0;
+    list-style: none;
+}
+
+#historico li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 5px;
+    border-bottom: 1px solid var(--borda);
+    flex-wrap: wrap;
+}
+
+#historico .receita-valor {
+    color: var(--verde);
+    font-weight: bold;
+}
+
+#historico .despesa-valor {
+    color: var(--vermelho);
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 14px;
+}
+
+/* ===================================
+   Acessibilidade - Alto contraste
+   Ativado pelo JavaScript
+   =================================== */
+
+body.alto-contraste {
+    --azul: #000000;
+    --azul-escuro: #000000;
+    --verde: #ffff00;
+    --vermelho: #ffff00;
+    --texto: #ffffff;
+    --fundo: #000000;
+    --branco: #000000;
+    --borda: #ffffff;
+    --foco: #ffff00;
+
+    background: #000000;
+    color: #ffffff;
+}
+
+.alto-contraste .cabecalho {
+    background: #000000;
+    border-bottom: 2px solid #ffff00;
+}
+
+.alto-contraste .apresentacao h1,
+.alto-contraste .painel h2 {
+    color: #ffff00;
+}
+
+.alto-contraste .painel {
+    border: 2px solid #ffffff;
+    box-shadow: none;
+}
+
+.alto-contraste input,
+.alto-contraste select {
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #ffff00;
+}
+
+.alto-contraste .cartao {
+    background: #000000;
+    color: #ffff00;
+    border: 2px solid #ffff00;
+}
+
+.alto-contraste .botao-principal {
+    background: #ffff00;
+    color: #000000;
+    border: 2px solid #ffffff;
+}
+
+.alto-contraste #contraste {
+    background: #ffff00;
+    color: #000000;
+}
+
+.alto-contraste #historico .receita-valor,
+.alto-contraste #historico .despesa-valor {
+    color: #ffff00;
+}
+
+.alto-contraste .skip-link {
+    background: #ffff00;
+    color: #000000;
+}
+
+/* ===================================
+   Layout para celulares
+   =================================== */
+
+@media (max-width: 650px) {
+    .cabecalho {
+        padding: 18px;
+    }
+
+    .marca {
+        font-size: 24px;
+    }
+
+    .container {
+        margin: 20px auto;
+    }
+
+    .painel {
+        padding: 18px;
+        border-radius: 15px;
+    }
+
+    .cartoes {
+        grid-template-columns: 1fr;
+    }
+
+    .cartao p {
+        font-size: 27px;
+    }
+
+    .painel h2 {
+        font-size: 21px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+    }
+}
