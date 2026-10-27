@@ -2,6 +2,7 @@
 from flask import Flask, request, jsonify
 from database import conectar, criar_tabelas
 from datetime import date
+import sqlite3
 
 app = Flask(__name__)
 criar_tabelas()
@@ -43,7 +44,7 @@ def cadastrar_lancamento():
 @app.route("/lancamentos", methods=["GET"])
 def listar_lancamentos():
     with conectar() as conexao:
-        conexao.row_factory = __import__("sqlite3").Row
+conexao.row_factory = sqlite3.Row
         registros = conexao.execute(
             "SELECT * FROM lancamentos ORDER BY id DESC"
         ).fetchall()
