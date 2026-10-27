@@ -7,9 +7,11 @@ import sqlite3
 app = Flask(__name__)
 criar_tabelas()
 
+
 @app.route("/")
 def inicio():
     return "Bem-vindo ao DriveFin!"
+
 
 @app.route("/lancamentos", methods=["POST"])
 def cadastrar_lancamento():
@@ -37,20 +39,29 @@ def cadastrar_lancamento():
             INSERT INTO lancamentos
             (descricao, tipo, valor, data)
             VALUES (?, ?, ?, ?)
-        """, (descricao.strip(), tipo, valor, date.today().isoformat()))
+        """, (
+            descricao.strip(),
+            tipo,
+            valor,
+            date.today().isoformat()
+        ))
 
-    return jsonify({"mensagem": "Lancamento cadastrado!"}), 201
+    return jsonify({
+        "mensagem": "Lancamento cadastrado!"
+    }), 201
+
 
 @app.route("/lancamentos", methods=["GET"])
 def listar_lancamentos():
     with conectar() as conexao:
-conexao.row_factory = sqlite3.Row
+        conexao.row_factory = sqlite3.Row
         registros = conexao.execute(
             "SELECT * FROM lancamentos ORDER BY id DESC"
         ).fetchall()
 
     return jsonify([dict(item) for item in registros])
-    
+
+
 @app.route("/resumo", methods=["GET"])
 def resumo_financeiro():
     with conectar() as conexao:
@@ -72,7 +83,6 @@ def resumo_financeiro():
         "total_despesas": despesas,
         "lucro_liquido": lucro_liquido
     })
-
 
 
 if __name__ == "__main__":
