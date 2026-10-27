@@ -1,11 +1,27 @@
 
+import os
+import sqlite3
+from datetime import date
+
 from flask import Flask, request, jsonify, render_template
 from database import conectar, criar_tabelas
-from datetime import date
-import sqlite3
 
 app = Flask(__name__)
+
+# Configuracoes de seguranca
+app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
+app.config["JSON_SORT_KEYS"] = False
+
+# Inicializar banco de dados
 criar_tabelas()
+
+
+@app.after_request
+def adicionar_cabecalhos_seguranca(resposta):
+    resposta.headers["X-Content-Type-Options"] = "nosniff"
+    resposta.headers["X-Frame-Options"] = "DENY"
+    resposta.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    return resposta
 
 
 @app.route("/")
@@ -13,8 +29,20 @@ def inicio():
     return render_template("index.html")
 
 
+@app.route("/health", methods=["GET"])
+def verificar_saude():
+    return jsonify({"status": "ok"}), 200
+
+
 @app.route("/lancamentos", methods=["POST"])
 def cadastrar_lancamento():
+
+    # Bloquear cadastros na demonstracao publica
+    if os.getenv("DEMO_MODE") == "1":
+        return jsonify({
+            "erro": "Cadastro desativado na demonstracao publica."
+        }), 403
+
     dados = request.get_json(silent=True)
 
     if not isinstance(dados, dict):
@@ -27,11 +55,16 @@ def cadastrar_lancamento():
     if not isinstance(descricao, str) or not descricao.strip():
         return jsonify({"erro": "Descricao obrigatoria"}), 400
 
+    if len(descricao) > 200:
+        return jsonify({"erro": "Descricao muito longa"}), 400
+
     if tipo not in ("receita", "despesa"):
         return jsonify({"erro": "Tipo invalido"}), 400
 
-    if (type(valor) not in (int, float)
-            or not 0 < valor < float("inf")):
+    if (
+        type(valor) not in (int, float)
+        or not 0 < valor < float("inf")
+    ):
         return jsonify({"erro": "Valor invalido"}), 400
 
     with conectar() as conexao:
@@ -86,4 +119,4 @@ def resumo_financeiro():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
