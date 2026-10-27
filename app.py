@@ -49,6 +49,30 @@ def listar_lancamentos():
         ).fetchall()
 
     return jsonify([dict(item) for item in registros])
+    
+@app.route("/resumo", methods=["GET"])
+def resumo_financeiro():
+    with conectar() as conexao:
+        resultado = conexao.execute("""
+            SELECT
+                COALESCE(SUM(CASE WHEN tipo = 'receita'
+                    THEN valor ELSE 0 END), 0),
+                COALESCE(SUM(CASE WHEN tipo = 'despesa'
+                    THEN valor ELSE 0 END), 0)
+            FROM lancamentos
+        """).fetchone()
+
+    receitas = round(resultado[0], 2)
+    despesas = round(resultado[1], 2)
+    lucro_liquido = round(receitas - despesas, 2)
+
+    return jsonify({
+        "total_receitas": receitas,
+        "total_despesas": despesas,
+        "lucro_liquido": lucro_liquido
+    })
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
