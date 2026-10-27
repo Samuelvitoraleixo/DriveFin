@@ -1,5 +1,5 @@
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from database import conectar, criar_tabelas
 from datetime import date
 import sqlite3
@@ -10,7 +10,7 @@ criar_tabelas()
 
 @app.route("/")
 def inicio():
-    return "Bem-vindo ao DriveFin!"
+    return render_template("index.html")
 
 
 @app.route("/lancamentos", methods=["POST"])
