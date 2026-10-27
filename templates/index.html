@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0754a6">
+    <title>DriveFin - Controle Financeiro</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/script.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="cabecalho">
+        <div class="marca">
+            <span aria-hidden="true">🚗</span>
+            <strong>DriveFin</strong>
+        </div>
+        <button id="contraste" type="button"
+                aria-pressed="false">
+            Alto contraste
+        </button>
+    </header>
+
+    <main id="conteudo" class="container">
+        <section class="apresentacao">
+            <h1>Seu controle financeiro na palma da mão</h1>
+            <p>Organize seus ganhos e despesas como motorista de aplicativo.</p>
+        </section>
+
+        <section class="painel" aria-labelledby="titulo-cadastro">
+            <h2 id="titulo-cadastro">Novo lançamento</h2>
+
+            <form id="form-lancamento">
+                <label for="tipo">Tipo de lançamento *</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="receita">Receita</option>
+                    <option value="despesa">Despesa</option>
+                </select>
+
+                <label for="valor">Valor (R$) *</label>
+                <input id="valor" name="valor" type="number"
+                       min="0.01" step="0.01" required
+                       placeholder="250,00">
+
+                <label for="categoria">Categoria *</label>
+                <select id="categoria" required>
+                    <option value="Corrida por aplicativo">Corrida por aplicativo</option>
+                    <option value="Combustível">Combustível</option>
+                    <option value="Manutenção">Manutenção</option>
+                    <option value="Alimentação">Alimentação</option>
+                    <option value="Outros">Outros</option>
+                </select>
+
+                <label for="descricao">Descrição (opcional)</label>
+                <input id="descricao" type="text" maxlength="200"
+                       placeholder="Ex.: Corrida Uber - Centro">
+
+                <button class="botao-principal" type="submit">
+                    Salvar lançamento
+                </button>
+            </form>
+            <p id="mensagem" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="painel" aria-labelledby="titulo-resumo">
+            <h2 id="titulo-resumo">Resumo financeiro</h2>
+
+            <div class="cartoes">
+                <article class="cartao receitas">
+                    <h3>Total de Receitas</h3>
+                    <p id="receitas">R$ 0,00</p>
+                </article>
+
+                <article class="cartao despesas">
+                    <h3>Total de Despesas</h3>
+                    <p id="despesas">R$ 0,00</p>
+                </article>
+
+                <article class="cartao lucro">
+                    <h3>Lucro Líquido</h3>
+                    <p id="lucro">R$ 0,00</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="painel" aria-labelledby="titulo-historico">
+            <h2 id="titulo-historico">Últimos lançamentos</h2>
+            <ul id="historico" aria-live="polite">
+                <li>Nenhum lançamento registrado.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>DriveFin © 2026 - Controle financeiro para motoristas</p>
+    </footer>
+</body>
+</html>
